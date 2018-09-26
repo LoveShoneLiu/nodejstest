@@ -1,0 +1,44 @@
+{
+  "name": "fe",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "qs": "^6.5.2",
+    "vue": "^2.5.17",
+    "vue-router": "^3.0.1",
+    "vuex": "^3.0.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-import": "^1.6.3",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "clean-webpack-plugin": "^0.1.17",
+    "css-loader": "^0.28.8",
+    "file-loader": "^1.1.6",
+    "json-loader": "^0.5.7",
+    "npm-run-all": "^4.1.3",
+    "postcss": "^7.0.2",
+    "postcss-loader": "^3.0.0",
+    "style-loader": "^0.19.1",
+    "url-loader": "^0.6.2",
+    "vue": "^2.5.17",
+    "vue-loader": "^15.4.2",
+    "vue-style-loader": "^4.1.2",
+    "vue-template-compiler": "^2.5.17",
+    "webpack": "^3.10.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm-run-all --parallel startServer devBuild",
+    "startServer": "node ../server.js",
+    "devBuild": "NODE_ENV=development webpack --progress --watch"
+  },
+  "author": "",
+  "license": "ISC"
+}
