@@ -5,6 +5,7 @@ const fs = require('fs');
 const NODE_ENV = process.env.NODE_ENV;
 const isProduction = Boolean(NODE_ENV == 'pruduction');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
+console.log('__dirname', __dirname);
 
 const config = {
     entry: {
@@ -14,11 +15,12 @@ const config = {
         "vendors": [
             "vue",
             "vuex",
-            "vue-router"
+            "vue-router",
+            "iview"
         ]
     },
     output: {
-        publicPath: './dist',
+        publicPath: './dist/',
         path: path.resolve(__dirname, 'dist'),
         filename: 'js/[name]-[hash].js',
         chunkFilename: 'js/[name]-[id]-[hash].bundle.js'
@@ -35,6 +37,7 @@ const config = {
         new webpack.DefinePlugin({
             _isProduction: isProduction
         }),
+        new cleanWebpackPlugin(['dist'])
     ],
     resolve: {
         alias: {
@@ -131,8 +134,7 @@ if (NODE_ENV != 'development') {
         }),
         new webpack.optimize.UglifyJsPlugin({
             minimize: true
-        }),
-        new cleanWebpackPlugin(['dist'])
+        })
     );
 }
 

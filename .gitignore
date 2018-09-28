@@ -1,0 +1,6 @@
+*.zip
+*.rar
+*.log
+node_modules
+build
+dist

@@ -5,6 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "axios": "^0.18.0",
+    "iview": "^3.1.2",
     "qs": "^6.5.2",
     "vue": "^2.5.17",
     "vue-router": "^3.0.1",
@@ -36,6 +37,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npm-run-all --parallel startServer devBuild",
+    "splitStart": "npm-run-all --parallel devBuild",
     "startServer": "node ../server.js",
     "devBuild": "NODE_ENV=development webpack --progress --watch"
   },
