@@ -60,6 +60,7 @@
                     let data = res.data;
                     if (data.status == 1000) {
                         // 跳转到注册页！
+                        
                     } 
                 });
             },
