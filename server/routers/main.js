@@ -4,8 +4,8 @@ var path = require('path');
 var userModel = require('../modules/User.js');
 
 router.get('/*', function(req, res, next) {
-    console.log('req', req);
-    console.log('req.session', req.session);
+    // console.log('req', req);
+    // console.log('req.session', req.session);
 
     // 判断session内用户信息，如果有用户名和用户密码则说明已登录
     var isLogined = req.session.userInfo && req.session.userInfo.userName && req.session.userInfo.password && req.cookies.userName;

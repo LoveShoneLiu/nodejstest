@@ -1,8 +1,8 @@
 import Test from '../components/Test';
-const Foo = { template: '<div>foo</div>' };
-const Bar = { template: '<div>bar</div>' };
 const imageCom = { template: '<div>图片</div>' };
 const articleCom = { template: '<div>文章</div>' };
+const Login = { template: '<div>登录页</div>' };
+const PageIndexCom = { template: '<div>首页</div>' };
 
 // 2. 定义路由
 // 每个路由应该映射一个组件。 其中"component" 可以是
@@ -12,6 +12,9 @@ const routes = [{
         path: '/',
         redirect: '/imageNav'
     }, {
+        path: '/pageIndex',
+        component: PageIndexCom
+    }, {
         path: '/imageNav',
         component: imageCom
     }, {
@@ -20,6 +23,9 @@ const routes = [{
     }, {
         path: '/test',
         component: Test
+    }, {
+        path: '/login',
+        component: Login
     }]
 
 export default routes;

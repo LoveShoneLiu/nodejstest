@@ -1,23 +1,22 @@
 <template>
-    <div class="clearfix">
-        <span class="pull-left">
-            用户名
-        </span>
-        <div class="pull-right login__operation">
-            <span @click="modal1 = true">登录</span>
-            <span>登出</span>
-            <span>注册</span>
-        </div>
+    <div class="clearfix user-info__box">
+        <span v-if="isLogin">用户名</span>
+        <span class="user-info__operation" v-if="isLogin" @click="loginOutHandler">退出</span>
+        <span class="user-info__operation" v-if="!isLogin" @click="loginInHandler">登录</span>
+        <span class="user-info__operation" v-if="!isLogin" @click="registerHandler">注册</span>
         <Modal
-            v-model="modal1"
-            title="Common Modal dialog box title"
+            v-model="isShowModal"
+            :title= "loginOrRegister ? '登录' : '注册'"
+            :loading="loading"
             @on-ok="ok"
-            @on-cancel="cancel">
-            <p>
+            @on-cancel="cancel"
+            class="user__modal"
+        >
+            <p class="user__modal-item">
                 <span>用户名：</span>
                 <input v-model="username" type="text" />
             </p>
-            <p>
+            <p class="user__modal-item">
                 <span>密码：</span>
                 <input v-model="password" type="password" />
             </p>
@@ -26,46 +25,154 @@
 </template>
 
 <style scoped>
-    .login__operation span {
+    .user-info__box .user-info__operation {
         cursor: pointer;
+    }
+    .user__modal-item {
+        margin-bottom: 10px;
+        padding-left: 60px;
+    }
+    .user__modal-item span {
+        display: inline-block;
+        width: 65px;
+        text-align: right;
+    }
+    .user__modal-item input {
+        width: 260px;
     }
 </style>
 
 <script>
     import axios from 'axios';
     import qs from 'qs';
+    import { mapState, mapMutations } from 'vuex';
     export default {
         data () {
             return {
-                modal1: false,
+                isShowModal: false,
                 username: '',
-                password: ''
+                password: '',
+                loginOrRegister: 1,
+                loading: true
             }
         },
+        computed: mapState({
+            isLogin: state => state.isLogin
+        }),
         methods: {
-            ok () {
+            ...mapMutations([
+                'authenticatedHandler'
+            ]),
+            loginInHandler() {
+                this.loginOrRegister = 1;
+                this.isShowModal = true;
+            },
+            registerHandler() {
+                this.loginOrRegister = 0;
+                this.isShowModal = true;
+            },
+            loginOutHandler() {
                 axios({
                     method: 'post',
-                    url: '/api/loginin',
-                    headers: { 'content-type': 'application/x-www-form-urlencoded' },
-                    data: qs.stringify({
-                        userName: this.username,
-                        password: this.password
-                    })
+                    url: '/api/loginout',
+                    headers: { 'content-type': 'application/x-www-form-urlencoded' }
                 }).then(res => {
-                    console.log('res', res);
                     if (res.status !=200) {
                         alert('网络错误，请检查网络！');
                     }
                     let data = res.data;
-                    if (data.status == 1000) {
-                        // 跳转到注册页！
-                    } 
+                    console.log('loginoutData', data);
+                    if (data.statusCode == 1000) {
+                        this.authenticatedHandler(false);
+                    }
                 });
             },
+            ok() {
+
+                /**
+                 *  登录
+                 *  params: statusCode
+                 *  1000:登录成功、1001：未注册、1002：已注册，未登录成功
+                 */
+                if (this.loginOrRegister) {
+                    axios({
+                        method: 'post',
+                        url: '/api/loginin',
+                        headers: { 'content-type': 'application/x-www-form-urlencoded' },
+                        data: qs.stringify({
+                            userName: this.username,
+                            password: this.password
+                        })
+                    }).then(res => {
+                        if (res.status !=200) {
+                            this.$Message.info('网络错误，请检查网络！');
+                            this.loading = false;
+                            this.$nextTick(() => {
+                                this.loading = true;
+                            });
+                            return;
+                        }
+                        let data = res.data;
+                        if (data.statusCode == 1000) {
+                            this.$Message.info('登录成功');
+                            this.isShowModal = false;
+                            this.authenticatedHandler(true);
+                            return;
+                        } else if(data.statusCode == 1002) {
+                            this.$Message.info('密码错误');
+                            this.authenticatedHandler(false);
+                        } else if(data.statusCode == 1001) {
+                            this.$Message.info('请先注册');
+                            this.authenticatedHandler(false);
+                        }
+                        this.loading = false;
+                        this.$nextTick(() => {
+                            this.loading = true;
+                        });
+                    });
+
+                /**
+                 *  注册
+                 *  params: statusCode
+                 *  1000:注册成功、1001：注册失败
+                 */
+                } else {
+                    axios({
+                        method: 'post',
+                        url: '/api/register',
+                        headers: { 'content-type': 'application/x-www-form-urlencoded' },
+                        data: qs.stringify({
+                            userName: this.username,
+                            password: this.password
+                        })
+                    }).then(res => {
+                        this.isShowModal = false;
+                        if (res.status !=200) {
+                            this.$Message.info('网络错误，请检查网络！');
+                        }
+                        let data = res.data;
+                        if (data.statusCode == 1001) {
+                            this.$Message.info('注册成功');
+                            this.isShowModal = false;
+                        } else if(data.statusCode == 1000) {
+                            this.$Message.info('已用该用户');
+                        } else {
+                            this.$Message.info('注册失败');
+                        }
+                        this.loading = false;
+                        this.$nextTick(() => {
+                            this.loading = true;
+                        });
+                    });
+                }
+            },
             cancel () {
-                this.$Message.info('Clicked cancel');
+                // this.$Message.info('Clicked cancel');
             }
+        },
+        mounted() {
+        },
+        updated() {
         }
     }
 </script>
