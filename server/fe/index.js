@@ -2,7 +2,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import routes from './src/router';
-import App from './src/components/App/app.vue';
+import App from './src/components/App/App.vue';
 // import store from './store/'
 // import ajax from './config/ajax'
 // import './style/common'
@@ -15,5 +15,6 @@ const router = new VueRouter({
 
 new Vue({
 	router,
-    // store,
+	// store,
+	render: h =>h(App)
 }).$mount('#app')

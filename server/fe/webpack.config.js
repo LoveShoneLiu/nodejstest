@@ -40,13 +40,14 @@ const config = {
         alias: {
             jsCommon: path.resolve(__dirname, 'src/js/common'),
             cssCommon: path.resolve(__dirname, 'src/css/common'),
-            root: path.resolve(__dirname, 'src/'),
+            root: path.resolve(__dirname, 'src/')
 
             // npm默认安装vue“运行时”版本，加入下面代码，则使用编译+运行时版本，如果只使用“运行时”版本，则不能使用template，只能使用render函数
-            vue: 'vue/dist/vue.js'
+            // vue: 'vue/dist/vue.js'
         },
         extensions: ['.js', '.vue', '.json']
     },
+    devtool: "source-map",
     module: {
         rules: [
             {
