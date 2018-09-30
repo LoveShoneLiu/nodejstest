@@ -4,16 +4,16 @@ import VueRouter from 'vue-router'
 import routes from './src/router';
 import App from './src/components/App';
 import './src/css/common/base.css';
-import iView from 'iview';
-import 'iview/dist/styles/iview.css';
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
 import { getCookie } from 'jspath/common/utils';
-import store from 'root/store/'
+import store from 'rootPath/store/'
 // import ajax from './config/ajax'
 // import './style/common'
 // import './config/rem'
 
 Vue.use(VueRouter);
-Vue.use(iView);
+Vue.use(ElementUI);
 const router = new VueRouter({
 	routes
 });

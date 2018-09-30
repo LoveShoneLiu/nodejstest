@@ -16,7 +16,7 @@ const config = {
             "vue",
             "vuex",
             "vue-router",
-            "iview"
+            "element-ui"
         ]
     },
     output: {
@@ -43,7 +43,8 @@ const config = {
         alias: {
             jspath: path.resolve(__dirname, 'src/js/'),
             csspath: path.resolve(__dirname, 'src/css/'),
-            root: path.resolve(__dirname, 'src/'),
+            rootPath: path.resolve(__dirname, 'src/'),
+            componentsPath: path.resolve(__dirname, 'src/components/'),
 
             // npm默认安装vue“运行时”版本，加入下面代码，则使用编译+运行时版本，如果只使用“运行时”版本，则不能使用template，只能使用render函数
             vue: 'vue/dist/vue.js'

@@ -1,16 +1,14 @@
 <template>
     <div class="clearfix user-info__box">
-        <span v-if="isLogin">用户名</span>
-        <span class="user-info__operation" v-if="isLogin" @click="loginOutHandler">退出</span>
-        <span class="user-info__operation" v-if="!isLogin" @click="loginInHandler">登录</span>
-        <span class="user-info__operation" v-if="!isLogin" @click="registerHandler">注册</span>
-        <Modal
-            v-model="isShowModal"
+        <div class="user-info">
+            <span v-if="isLogin">用户名</span>
+            <span class="user-info__operation" v-if="isLogin" @click="loginOutHandler">退出</span>
+            <span class="user-info__operation" v-if="!isLogin" @click="loginInHandler">登录</span>
+            <span class="user-info__operation" v-if="!isLogin" @click="registerHandler">注册</span>
+        </div>
+        <el-dialog 
             :title= "loginOrRegister ? '登录' : '注册'"
-            :loading="loading"
-            @on-ok="ok"
-            @on-cancel="cancel"
-            class="user__modal"
+            :visible.sync="isShowModal"
         >
             <p class="user__modal-item">
                 <span>用户名：</span>
@@ -20,11 +18,18 @@
                 <span>密码：</span>
                 <input v-model="password" type="password" />
             </p>
-        </Modal>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click="isShowModal = false">取 消</el-button>
+                <el-button type="primary" @click="ok">确 定</el-button>
+            </div>
+        </el-dialog>
     </div>
 </template>
 
 <style scoped>
+    .user-info {
+        line-height: 60px;
+    }
     .user-info__box .user-info__operation {
         cursor: pointer;
     }
@@ -53,7 +58,7 @@
                 username: '',
                 password: '',
                 loginOrRegister: 1,
-                loading: true
+                dialogFormVisible: false,
             }
         },
         computed: mapState({
@@ -78,7 +83,7 @@
                     headers: { 'content-type': 'application/x-www-form-urlencoded' }
                 }).then(res => {
                     if (res.status !=200) {
-                        alert('网络错误，请检查网络！');
+                        this.$message('网络错误，请检查网络！');
                     }
                     let data = res.data;
                     console.log('loginoutData', data);
@@ -105,30 +110,22 @@
                         })
                     }).then(res => {
                         if (res.status !=200) {
-                            this.$Message.info('网络错误，请检查网络！');
-                            this.loading = false;
-                            this.$nextTick(() => {
-                                this.loading = true;
-                            });
+                            this.$message('网络错误，请检查网络！');
                             return;
                         }
                         let data = res.data;
                         if (data.statusCode == 1000) {
-                            this.$Message.info('登录成功');
+                            this.$message('登录成功');
                             this.isShowModal = false;
                             this.authenticatedHandler(true);
                             return;
                         } else if(data.statusCode == 1002) {
-                            this.$Message.info('密码错误');
+                            this.$message('密码错误');
                             this.authenticatedHandler(false);
                         } else if(data.statusCode == 1001) {
-                            this.$Message.info('请先注册');
+                            this.$message('请先注册');
                             this.authenticatedHandler(false);
                         }
-                        this.loading = false;
-                        this.$nextTick(() => {
-                            this.loading = true;
-                        });
                     });
 
                 /**
@@ -148,26 +145,22 @@
                     }).then(res => {
                         this.isShowModal = false;
                         if (res.status !=200) {
-                            this.$Message.info('网络错误，请检查网络！');
+                            this.$message('网络错误，请检查网络！');
                         }
                         let data = res.data;
                         if (data.statusCode == 1001) {
-                            this.$Message.info('注册成功');
+                            this.$message('注册成功');
                             this.isShowModal = false;
                         } else if(data.statusCode == 1000) {
-                            this.$Message.info('已用该用户');
+                            this.$message('已用该用户');
                         } else {
-                            this.$Message.info('注册失败');
+                            this.$message('注册失败');
                         }
-                        this.loading = false;
-                        this.$nextTick(() => {
-                            this.loading = true;
-                        });
                     });
                 }
             },
             cancel () {
-                // this.$Message.info('Clicked cancel');
+                // this.$message('Clicked cancel');
             }
         },
         mounted() {
