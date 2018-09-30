@@ -4,7 +4,8 @@
             <div class="page__nav clearfix">
                 <router-link class="page__nav-item" to="/pageIndex">首页</router-link>
                 <router-link class="page__nav-item" to="/imageNav">图片</router-link>
-                <router-link to="/articleNav">文章</router-link>
+                <router-link class="page__nav-item" to="/articleNav">文章</router-link>
+                <router-link class="page__nav-item" to="/admin">后台</router-link>
                 <UserInfo class="pull-right"></UserInfo>
             </div>
         </div>

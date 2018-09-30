@@ -51,6 +51,7 @@
     import axios from 'axios';
     import qs from 'qs';
     import { mapState, mapMutations } from 'vuex';
+    import Urls from 'jspath/common/urls';
     export default {
         data () {
             return {
@@ -79,7 +80,7 @@
             loginOutHandler() {
                 axios({
                     method: 'post',
-                    url: '/api/loginout',
+                    url: Urls.loginOutApi,
                     headers: { 'content-type': 'application/x-www-form-urlencoded' }
                 }).then(res => {
                     if (res.status !=200) {
@@ -102,7 +103,7 @@
                 if (this.loginOrRegister) {
                     axios({
                         method: 'post',
-                        url: '/api/loginin',
+                        url: Urls.loginInApi,
                         headers: { 'content-type': 'application/x-www-form-urlencoded' },
                         data: qs.stringify({
                             userName: this.username,
@@ -136,7 +137,7 @@
                 } else {
                     axios({
                         method: 'post',
-                        url: '/api/register',
+                        url: Urls.registerApi,
                         headers: { 'content-type': 'application/x-www-form-urlencoded' },
                         data: qs.stringify({
                             userName: this.username,

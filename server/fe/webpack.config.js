@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const cleanWebpackPlugin = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 const fs = require('fs');
 const NODE_ENV = process.env.NODE_ENV;
@@ -20,13 +21,18 @@ const config = {
         ]
     },
     output: {
-        publicPath: './dist/',
+        publicPath: './',
         path: path.resolve(__dirname, 'dist'),
         filename: 'js/[name]-[hash].js',
         chunkFilename: 'js/[name]-[id]-[hash].bundle.js'
     },
     plugins: [
         new VueLoaderPlugin(),
+        new HtmlWebpackPlugin({
+            filename: 'index.html',
+            // inject: false,
+            template: './index.html',
+        }),
         // 把入口文件里面的数组打包成vendors.js
         new webpack.optimize.CommonsChunkPlugin({
             name: 'vendors',
@@ -35,9 +41,11 @@ const config = {
 
         // DefinePlugin 允许创建一个在编译时可以配置的全局常量
         new webpack.DefinePlugin({
-            _isProduction: isProduction
-        }),
-        new cleanWebpackPlugin(['dist'])
+            _isProduction: isProduction,
+            // _baseUrl: JSON.stringify(Boolean(NODE_ENV == 'pruduction') ? "./" : "localhost:4000")
+            _baseUrl: JSON.stringify(Boolean(NODE_ENV == 'pruduction') ? "" : "")
+        })
+        // new cleanWebpackPlugin(['dist'])
     ],
     resolve: {
         alias: {
@@ -111,20 +119,28 @@ const config = {
                 }]
             }
         ]    
+    },
+    devServer: {
+        port: 4001,
+        proxy: {
+            '/api': 'http://localhost:4000'
+        },
+        // 服务器打包资源后的输出路径
+        publicPath: '/',
     }
 }
 
 // 动态替换 index.html 入口 js src 地址
-config.plugins.push(function() {
-    this.plugin('done', function(statsData) {
-        var stats = statsData.toJson()
-        var html = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf8')
-        // var distPath = config.output.publicPath + 'app.' + (isProduction ? stats.hash : '') + 'js'
-        var distPath = config.output.publicPath + '/js/main-' + (stats.hash) + '.js'
-        html = html.replace(/(<script id="mainjs" src=").*?(")/, '$1' + distPath + '$2')
-        fs.writeFileSync(path.join(__dirname, 'index.html'), html)
-    })
-})
+// config.plugins.push(function() {
+//     this.plugin('done', function(statsData) {
+//         var stats = statsData.toJson()
+//         var html = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf8')
+//         // var distPath = config.output.publicPath + 'app.' + (isProduction ? stats.hash : '') + 'js'
+//         var distPath = config.output.publicPath + '/js/main-' + (stats.hash) + '.js'
+//         html = html.replace(/(<script id="mainjs" src=").*?(")/, '$1' + distPath + '$2')
+//         fs.writeFileSync(path.join(__dirname, 'index.html'), html)
+//     })
+// })
 
 // 这个使用uglifyjs压缩js代码，webpack 自带了一个压缩插件 UglifyJsPlugin
 // if (NODE_ENV != 'development') {
