@@ -16,7 +16,8 @@ router.get('/*', function(req, res, next) {
         });
     } else {
         req.session.destroy();
-        res.clearCookie();
+        res.clearCookie('userName');
+        res.clearCookie('connect.sid');
         res.render('index', {
             isProduction: 'development',
             isLogined: isLogined

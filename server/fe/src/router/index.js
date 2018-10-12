@@ -1,8 +1,8 @@
 import Test from '../components/Test';
 // import imageCom from 'componentsPath/imageCom';
 // const imageCom = { template: '<div>图片</div>' };
-const imageCom = () => import('componentsPath/imageCom');
-const adminCom = () => import('componentsPath/adminCom');
+const imageCom = () => import('componentsPath/ImageCom');
+const adminCom = () => import('componentsPath/AdminCom');
 // const articleCom = { template: '<div>文章</div>' };
 // const Login = { template: '<div>登录页</div>' };
 // const PageIndexCom = { template: '<div>首页</div>' };

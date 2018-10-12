@@ -8,6 +8,7 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var FileStore = require('session-file-store')(session);
 var mongoose = require('mongoose');
+import { port } from './configs/configs.js';
 
 // 创建app应用
 var app = express();
@@ -47,8 +48,27 @@ mongoose.connect('mongodb://localhost:27017/runoob', function(err) {
 // 在开发过程中，需要取消模板缓存
 // ejs.setDefaults({cache: false});
 
-// 设置静态文件托管
+// 设置静态文件托管，第一个参数’/dist‘是设置的虚拟路径
 app.use('/dist', express.static(path.resolve(__dirname, './fe/dist')));
+
+// 设置上传文件的静态托管
+app.use(express.static(path.resolve(__dirname,'./uploads')));
+
+// 按照上面的解释，设置 session 的可选参数
+app.use(session({
+    resave: false,  //重新保存
+    saveUninitialized: true,
+    // store: new FileStore(),  // 本地存储session（文本文件，也可以选择其他store，比如redis的）
+    secret: 'recommand 128 bytes random string', // 建议使用 128 个字符的随机字符串
+    cookie: { maxAge: 1000 * 60 * 60 * 24 }
+}));
+
+// app.use('/admin', require('./routers/admin.js'));
+app.use('/api', require('./routers/api.js'));
+app.use('/', require('./routers/main.js'));
+
+
+
 
 // app.get('/', function (req, res, next) {
 //     console.log(11111111111111);
@@ -102,16 +122,3 @@ app.use('/dist', express.static(path.resolve(__dirname, './fe/dist')));
 //     store: new redisStore(),
 //     secret: 'somesecrettoken'
 // }));
-
-// 按照上面的解释，设置 session 的可选参数
-app.use(session({
-    resave: false,  //重新保存
-    saveUninitialized: true,
-    // store: new FileStore(),  // 本地存储session（文本文件，也可以选择其他store，比如redis的）
-    secret: 'recommand 128 bytes random string', // 建议使用 128 个字符的随机字符串
-    cookie: { maxAge: 1000 * 60 * 60 * 24 }
-}));
-
-// app.use('/admin', require('./routers/admin.js'));
-app.use('/api', require('./routers/api.js'));
-app.use('/', require('./routers/main.js'));
