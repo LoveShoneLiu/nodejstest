@@ -3,6 +3,7 @@ var router = express.Router();
 var path = require('path');
 var multer  = require('multer');
 var userModel = require('../modules/User.js');
+import imageModel from '../modules/Image.js';
 import { port } from '../configs/configs.js';
 
 /**
@@ -49,12 +50,13 @@ router.post('/register', function(req, res, next) {
                 password: req.body.password
             });
             newUser.save(function(err) {
-                if(err) console.error(err);
+                if(err) return console.error(err);
 
                 // 设置session
                 req.session.userInfo = {
                     userName: req.body.userName,
-                    password: req.body.password
+                    password: req.body.password,
+                    _id: newUser._id
                 }
 
                 // 设置cookie
@@ -93,7 +95,8 @@ router.post('/loginin', function(req, res, next) {
                     // 设置session
                     req.session.userInfo = {
                         userName: req.body.userName,
-                        password: req.body.password
+                        password: req.body.password,
+                        _id: val._id
                     }
 
                     // 设置cookie
@@ -167,6 +170,13 @@ router.post('/singleUploadImage', upload.single('file'), function (req, res, nex
      * req.body 将具有文本域数据，如果存在的话
     */
     // debugger;
+    // imageModel.find({userId: '5baf2684601295e32800adf4'}).populate('_creator').exec(function(err, image) {
+    //     console.log('errrrrrr', err);
+    //     console.log('story', image);
+    // })
+    // imageModel.find({userId: '5baf2684601295e32800adf4'}, function(err, result) {
+    //     console.log('result', result);
+    // })
     if (!req.file) {
         res.json({
             statusCode: 1001,
@@ -175,12 +185,22 @@ router.post('/singleUploadImage', upload.single('file'), function (req, res, nex
             }
         });
     } else {
-        res.json({
-            statusCode: 1000,
-            message: '上传成功',
-            data: {
-                url: `${req.protocol}://${req.host}:${port}/images/${req.file.filename}`
-            }
+        const imageUrl = `${req.protocol}://${req.host}:${port}/images/${req.file.filename}`;
+        let newImage = new imageModel({
+            userName: req.session.userInfo.userName,
+            url: imageUrl,
+            userId: req.session.userInfo._id,
+            _creator: req.session.userInfo._id
+        });
+        newImage.save(function(err) {
+            if(err) return console.error(err);
+            res.json({
+                statusCode: 1000,
+                message: '上传成功',
+                data: {
+                    url: imageUrl
+                }
+            });
         });
     }
 });

@@ -5,12 +5,16 @@ module.exports = new mongoose.Schema({
         type: String,
         required: true
     },
-    password: {
+    url: {
         type: String,
         required: true
     },
-    images: {
+    userId: {
+        type: String,
+        required: true
+    },
+    _creator : {
         type: Schema.Types.ObjectId,
-        ref: 'images'
+        ref: 'users'
     }
 });
