@@ -1,7 +1,7 @@
-var express = require('express');
+import express from 'express';
 var router = express.Router();
-var path = require('path');
-var userModel = require('../modules/User.js');
+import path from 'path';
+import userModel from '../modules/User.js';
 
 router.get('/*', function(req, res, next) {
     // console.log('req', req);
@@ -25,4 +25,4 @@ router.get('/*', function(req, res, next) {
     }
 });
 
-module.exports = router;
+export default router;

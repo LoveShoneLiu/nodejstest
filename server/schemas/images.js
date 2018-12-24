@@ -1,6 +1,6 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-module.exports = new mongoose.Schema({
+import mongoose from 'mongoose';
+const Schema = mongoose.Schema;
+export default new mongoose.Schema({
     userName: {
         type: String,
         required: true

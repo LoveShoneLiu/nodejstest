@@ -1,17 +1,19 @@
-var express = require('express');
-var url = require('url');
-var ejs = require('ejs');
-var path = require('path');
-var fs = require('fs');
-var bodyParser = require('body-parser');
-var cookieParser = require('cookie-parser');
-var session = require('express-session');
+import express from 'express';
+import path from 'path';
+import url from 'url';
+import ejs from 'ejs';
+import fs from 'fs';
+import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
+import session from 'express-session';
 var FileStore = require('session-file-store')(session);
-var mongoose = require('mongoose');
+import mongoose from 'mongoose';
 import { port } from './configs/configs.js';
+import Api from './routers/api.js';
+import Main from './routers/main.js';
 
 // 创建app应用
-var app = express();
+let app = express();
 
 // 使用 cookieParser 中间件，cookieParser(secret, options)
 // 其中 secret 用来加密 cookie 字符串（下面会提到 signedCookies）
@@ -64,8 +66,8 @@ app.use(session({
 }));
 
 // app.use('/admin', require('./routers/admin.js'));
-app.use('/api', require('./routers/api.js'));
-app.use('/', require('./routers/main.js'));
+app.use('/api', Api);
+app.use('/', Main);
 
 
 
