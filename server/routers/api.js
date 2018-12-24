@@ -10,10 +10,9 @@ import { port } from '../configs/configs.js';
  * multer用户图片保存
  * 通过 filename 属性定制
 */
-console.log('afa;sdfasdffas', path.resolve(__dirname, '../../uploads/images'))
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, path.resolve(__dirname, '../../uploads/images'));    // 保存的路径，备注：需要自己创建
+        cb(null, path.resolve(__dirname, '../uploads/images'));    // 保存的路径，备注：需要自己创建
     },
     filename: function (req, file, cb) {
         cb(null, (new Date()).getTime() + '-' + file.originalname);     // 将保存文件名设置为 字段名 + 时间戳，比如 logo-1478521468943

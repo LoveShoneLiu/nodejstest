@@ -38,13 +38,11 @@
     "webpack-dev-server": "^2.11.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npm-run-all --parallel startServer devBuild",
-    "build": "npm-run-all --parallel startServer proBuild",
-    "devStart": "NODE_ENV=development webpack-dev-server --public --inline --devtool eval --progress --colors --hot --history-api-fallback",
-    "devBuild": "NODE_ENV=development webpack --progress --watch --colors",
+    "start": "NODE_ENV=development webpack-dev-server --public --inline --devtool eval --progress --colors --hot --history-api-fallback",
+    "build": "NODE_ENV=development webpack --progress --watch --colors",
     "proBuild": "NODE_ENV=production webpack --progress --watch --colors",
-    "startServer": "node ../starts.js"
+    "startServer": "node ../starts.js",
+    "startDev": "npm-run-all --parallel startServer start"
   },
   "author": "",
   "license": "ISC"
