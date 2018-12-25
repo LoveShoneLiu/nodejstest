@@ -43,7 +43,8 @@
     "build": "NODE_ENV=development webpack --progress --watch --colors",
     "proBuild": "NODE_ENV=production webpack --progress --watch --colors",
     "startServer": "node ../starts.js",
-    "startDev": "npm-run-all --parallel startServer start"
+    "startClient": "npm-run-all --parallel startServer start", 
+    "startClound": "npm-run-all --parallel build startServer"
   },
   "author": "",
   "license": "ISC"
