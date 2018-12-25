@@ -6,6 +6,7 @@ const fs = require('fs');
 const NODE_ENV = process.env.NODE_ENV;
 const isProduction = Boolean(NODE_ENV == 'pruduction');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const apiMocker = require('webpack-api-mocker');
 console.log('__dirname', __dirname);
 
 const config = {
@@ -121,6 +122,14 @@ const config = {
         ]    
     },
     devServer: {
+        before(app){
+            apiMocker(app, path.resolve('./mocker/index.js'), {
+                // proxy: {
+                //     '/repos/*': 'https://api.github.com/',
+                // },
+                changeHost: true,
+            })
+        },
         port: 4001,
         proxy: {
             '/api': 'http://localhost:4000',

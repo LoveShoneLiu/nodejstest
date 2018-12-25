@@ -6,11 +6,12 @@ import fs from 'fs';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
-var FileStore = require('session-file-store')(session);
 import mongoose from 'mongoose';
 import { port } from './configs/configs.js';
 import Api from './routers/api.js';
 import Main from './routers/main.js';
+var router = express.Router();
+var FileStore = require('session-file-store')(session);
 
 // 创建app应用
 let app = express();
@@ -51,26 +52,25 @@ mongoose.connect('mongodb://localhost:27017/runoob', function(err) {
 // ejs.setDefaults({cache: false});
 
 // 设置静态文件托管，第一个参数’/dist‘是设置的虚拟路径
-app.use('/dist', express.static(path.resolve(__dirname, './fe/dist')));
+// app.use('/dist', express.static(path.resolve(__dirname, './fe/dist')));
+app.use('/', express.static(path.resolve(__dirname, './fe/dist')));
 
 // 设置上传文件的静态托管
 app.use(express.static(path.resolve(__dirname,'./uploads')));
 
 // 按照上面的解释，设置 session 的可选参数
 app.use(session({
-    resave: false,  //重新保存
-    saveUninitialized: true,
-    // store: new FileStore(),  // 本地存储session（文本文件，也可以选择其他store，比如redis的）
+    resave: false,  //重新保存,(是否允许)当客户端并行发送多个请求时，其中一个请求在另一个请求结束时对session进行修改覆盖并保存。默认为true。
+    saveUninitialized: true,    // 初始化session时是否保存到存储。默认为true， 但是(后续版本)有可能默认失效，所以最好手动添加。
+    // name: 'test',   //返回客户端的key的名称，默认为connect.sid,也可以自己设置。
+    store: new FileStore(),  // 本地存储session（文本文件，也可以选择其他store，比如redis的）
     secret: 'recommand 128 bytes random string', // 建议使用 128 个字符的随机字符串
-    cookie: { maxAge: 1000 * 60 * 60 * 24 }
+    cookie: { maxAge: 1000 * 60 * 60 * 24 } // 设置返回到前端key的属性，默认值为{ path: ‘/’, httpOnly: true, secure: false, maxAge: null }。
 }));
 
 // app.use('/admin', require('./routers/admin.js'));
-app.use('/api', Api);
 app.use('/', Main);
-
-
-
+app.use('/api', Api);
 
 // app.get('/', function (req, res, next) {
 //     console.log(11111111111111);
@@ -112,15 +112,3 @@ app.use('/', Main);
 //     res.render('index', {isProduction: 'development'}); 
 //     next();
 // });
-
-// console.log('__dirname', __dirname);
-// console.log('dir', path.resolve(__dirname, '../fe/dist/js'));
-// app.use(express.static(path.resolve(__dirname, '../fe/dist/js')));
-
-// app.use(session({
-//     // 假如你不想使用 redis 而想要使用 memcached 的话，代码改动也不会超过 5 行。
-//     // 这些 store 都遵循着统一的接口，凡是实现了那些接口的库，都可以作为 session 的 store 使用，比如都需要实现 .get(keyString) 和 .set(keyString, value) 方法。
-//     // 编写自己的 store 也很简单
-//     store: new redisStore(),
-//     secret: 'somesecrettoken'
-// }));

@@ -3,5 +3,7 @@ export default {
     loginInApi:  _baseUrl + '/api/loginin',
     loginOutApi: _baseUrl + '/api/loginout',
     registerApi: _baseUrl + '/api/register',
-    singleUploadImageApi: _baseUrl + '/api/singleUploadImage'
+    getImagesApi: _baseUrl + '/api/getImages',
+    singleUploadImageApi: _baseUrl + '/api/singleUploadImage',
+    testApi: _baseUrl + '/api/user/list'
 }

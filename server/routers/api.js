@@ -7,6 +7,7 @@ import imageModel from '../modules/Image.js';
 import { port } from '../configs/configs.js';
 import userRegister from './user.js';
 import uploadRegister from './upload.js';
+import imagesRegister from './images.js';
 
 // 用户注册、登录、登出
 userRegister({
@@ -18,4 +19,8 @@ uploadRegister({
     router: router
 });
 
+// 图片
+imagesRegister({
+    router: router
+});
 export default router;
