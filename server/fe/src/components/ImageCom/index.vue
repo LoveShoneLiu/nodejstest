@@ -62,5 +62,6 @@
     }
     .img__com-item img {
         vertical-align: middle;
+        width: 100%;
     }
 </style>

@@ -20,21 +20,17 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-	// console.log('state', store);
 	const isLoginBoolean = isLogin();
 	store.state.isLogin = isLoginBoolean;
-	console.log('to', to);
-	// console.log('isLogin', isLoginBoolean);
-	// console.log('store.state.isLogin', store.state.isLogin);
 
 	// 登录状态判断
-	if (to.path == '/login') {
-		next();
-	} else {
-		if (!isLoginBoolean) {
-			next('pageIndex');
-		}
-	}
+	// if (to.path == '/login') {
+	// 	next();
+	// } else {
+	// 	if (!isLoginBoolean) {
+	// 		next('pageIndex');
+	// 	}
+	// }
 	next();
 });
 
