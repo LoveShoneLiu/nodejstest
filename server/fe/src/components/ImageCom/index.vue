@@ -1,7 +1,7 @@
 <template>
     <div class="img__com clearfix">
         <div v-for="item in imgData" class="img__com-item pull-left">
-
+            <img :src="item.url" />
         </div>
     </div>
 </template>
@@ -13,10 +13,11 @@
     export default {
         data() {
             return {
-                imgData: [1,2,3,4,5,6,7,8,9]
+                imgData: []
             }
         },
         mounted() {
+            const self = this;
             axios({
                 method: 'post',
                 url: Urls.getImagesApi,
@@ -26,10 +27,8 @@
                     this.$message('网络错误，请检查网络！');
                 }
                 let data = res.data;
+                self.imgData = data.data;
                 console.log('loginoutData', data);
-                if (data.statusCode == 1000) {
-                    this.authenticatedHandler(false);
-                }
             });
 
             // webpack-api-mocker 的api
@@ -51,12 +50,17 @@
         },
     }
 </script>
-<style>
+<style scoped>
     .img__com-item {
         width: 400px;
         height: 400px;
         border: 2px solid black;
         margin-left: 20px;
         margin-bottom: 20px;
+        text-align: center;
+        line-height: 400px;
+    }
+    .img__com-item img {
+        vertical-align: middle;
     }
 </style>
