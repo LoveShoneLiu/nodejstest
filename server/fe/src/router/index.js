@@ -22,27 +22,63 @@ const PageIndexCom = {
 // 每个路由应该映射一个组件。 其中"component" 可以是
 // 通过 Vue.extend() 创建的组件构造器，
 // 或者，只是一个组件配置对象。
-const routes = [{
+const routes = [
+    {
         path: '/',
-        redirect: '/imageNav'
-    }, {
+        redirect: '/imageNav',
+        meta: {
+            requiresAuth: true
+        }
+    }, 
+    {
         path: '/pageIndex',
-        component: PageIndexCom
-    }, {
+        component: PageIndexCom,
+        meta: {
+            requiresAuth: true
+        }
+    }, 
+    {
         path: '/imageNav',
-        component: imageCom
-    }, {
+        component: imageCom,
+        meta: {
+            requiresAuth: true
+        }
+    }, 
+    {
         path: '/articleNav',
-        component: articleCom
-    }, {
+        component: articleCom,
+        meta: {
+            requiresAuth: true
+        }
+    }, 
+    {
         path: '/admin',
-        component: adminCom
-    }, {
+        component: adminCom,
+        meta: {
+            requiresAuth: true
+        }
+    }, 
+    {
         path: '/test',
-        component: Test
-    }, {
-        path: '/login',
-        component: Login
-    }]
+        component: Test,
+        meta: {
+            requiresAuth: true
+        }
+    }, 
+    // {
+    //     path: '/login',
+    //     component: Login
+    // },
+
+    // 如果未匹配到路由则跳转到pageIndex
+    {
+        path: '*',
+        redirect: '/pageIndex',
+        component: PageIndexCom,
+        meta: {
+            requiresAuth: true
+        }
+    }
+]
 
 export default routes;
