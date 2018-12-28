@@ -5,5 +5,7 @@ export default {
     registerApi: _baseUrl + '/api/register',
     getImagesApi: _baseUrl + '/api/getImages',
     singleUploadImageApi: _baseUrl + '/api/singleUploadImage',
+    articleApi: _baseUrl + '/api/article',
+    getArticleApi: _baseUrl + '/api/getArticle',
     testApi: _baseUrl + '/api/user/list'
 }

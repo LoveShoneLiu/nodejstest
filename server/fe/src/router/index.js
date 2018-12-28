@@ -5,6 +5,7 @@ const ImageCom = () => import('componentsPath/ImageCom');
 const AdminCom = () => import('componentsPath/AdminCom');
 const PageIndexCom = () => import('componentsPath/PageIndexCom');
 const WriteCom = () => import('componentsPath/WriteCom');
+const ArticleCon = () => import('componentsPath/ArticleCon');
 // const articleCom = { template: '<div>文章</div>' };
 // const Login = { template: '<div>登录页</div>' };
 // const PageIndexCom = { template: '<div>首页</div>' };
@@ -63,6 +64,13 @@ const routes = [
     {
         path: '/write',
         component: WriteCom,
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/showArticle',
+        component: ArticleCon,
         meta: {
             requiresAuth: true
         }

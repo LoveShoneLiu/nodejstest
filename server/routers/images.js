@@ -6,7 +6,7 @@ export default ({
     router.post('/getImages', (req, res, next) => {
         let page = req.body.page || 1;
         let count = req.body.count || 10;
-        imageModel.find().skip(page - 1).limit(count).exec(function(err, item) {
+        imageModel.find().skip(page - 1).limit(Number(count)).exec(function(err, item) {
             // console.log('err', err);
             // console.log('item', item);
             res.json({
