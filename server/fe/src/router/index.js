@@ -1,8 +1,10 @@
 import Test from '../components/Test';
-// import imageCom from 'componentsPath/imageCom';
-// const imageCom = { template: '<div>图片</div>' };
-const imageCom = () => import('componentsPath/ImageCom');
-const adminCom = () => import('componentsPath/AdminCom');
+// import ImageCom from 'componentsPath/ImageCom';
+// const ImageCom = { template: '<div>图片</div>' };
+const ImageCom = () => import('componentsPath/ImageCom');
+const AdminCom = () => import('componentsPath/AdminCom');
+const PageIndexCom = () => import('componentsPath/PageIndexCom');
+const WriteCom = () => import('componentsPath/WriteCom');
 // const articleCom = { template: '<div>文章</div>' };
 // const Login = { template: '<div>登录页</div>' };
 // const PageIndexCom = { template: '<div>首页</div>' };
@@ -13,9 +15,9 @@ const articleCom = {
 const Login = {
     render: h => h('div', '登录页')
 };
-const PageIndexCom = {
-    render: h => h('div', '首页')
-};
+// const PageIndexCom = {
+//     render: h => h('div', '首页')
+// };
 
 
 // 2. 定义路由
@@ -39,7 +41,7 @@ const routes = [
     }, 
     {
         path: '/imageNav',
-        component: imageCom,
+        component: ImageCom,
         meta: {
             requiresAuth: true
         }
@@ -53,11 +55,18 @@ const routes = [
     }, 
     {
         path: '/admin',
-        component: adminCom,
+        component: AdminCom,
         meta: {
             requiresAuth: true
         }
     }, 
+    {
+        path: '/write',
+        component: WriteCom,
+        meta: {
+            requiresAuth: true
+        }
+    },
     {
         path: '/test',
         component: Test,

@@ -45,8 +45,8 @@ const config = {
             _isProduction: isProduction,
             // _baseUrl: JSON.stringify(Boolean(NODE_ENV == 'pruduction') ? "./" : "localhost:4000")
             _baseUrl: JSON.stringify(Boolean(NODE_ENV == 'pruduction') ? "" : "")
-        })
-        // new cleanWebpackPlugin(['dist'])
+        }),
+        new cleanWebpackPlugin(['dist'])
     ],
     resolve: {
         alias: {
