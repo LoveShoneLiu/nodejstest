@@ -5,7 +5,8 @@
         </div>
         <div class="article-info">
             <span style="margin-right: 15px;">{{ `作者: ${conData.author}` }}</span>
-            <span>{{ `时间: ${articleDate}` }}</span>
+            <span style="margin-right: 15px;">{{ `时间: ${articleDate}` }}</span>
+            <span style="margin-right: 15px;" v-if="conData.label">{{ `类型: ${conData.label}` }}</span>
         </div>
         <div class="article-info article-main" v-html="conData.articleBody">
         </div>

@@ -36,16 +36,23 @@
 <script>
 import axios from 'axios';
 import qs from 'qs';
-import { mapState, mapMutations } from 'vuex';
+import { mapState, mapMutations, mapActions } from 'vuex';
 import Urls from 'jspath/common/urls';
 import { getCookie } from 'jspath/common/utils';
 export default {
     data() {
         return {
-            articleData: []
         }
     },
+    computed: mapState({
+        articleData: state =>  {
+            return state.articleData
+        }
+    }),
     methods: {
+        ...mapActions([
+            'getArticleAsync'
+        ]),
         gotoHandler(item) {
             this.$router.push({
                 path: '/showArticle',
@@ -57,21 +64,32 @@ export default {
     },
     mounted() {
         const self = this;
-        axios({
-            method: 'post',
-            url: Urls.getArticleApi,
-            data: qs.stringify({
-                page: 1,
-                count: 10
-            })
-        }).then(res => {
-            if (res.status !=200) {
-                this.$message('网络错误，请检查网络！');
-            }
-            let data = res.data;
-            self.articleData = data.data;
-            console.log('articleData', data);
+        // this.getArticleAsync(this, {
+        //     page: 1,
+        //     count: 10,
+        //     label: ''
+        // });
+        this.getArticleAsync({
+            context: this,
+            page: 1,
+            count: 10,
+            label: ''
         });
+        // axios({
+        //     method: 'post',
+        //     url: Urls.getArticleApi,
+        //     data: qs.stringify({
+        //         page: 1,
+        //         count: 10
+        //     })
+        // }).then(res => {
+        //     if (res.status !=200) {
+        //         this.$message('网络错误，请检查网络！');
+        //     }
+        //     let data = res.data;
+        //     self.articleData = data.data;
+        //     console.log('articleData', data);
+        // });
     }
 }
 </script>

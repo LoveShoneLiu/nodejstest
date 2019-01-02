@@ -20,6 +20,8 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
+
+	// 路由切换，判断是否在登录状态
 	const isLoginBoolean = isLogin();
 	store.state.isLogin = isLoginBoolean;
 

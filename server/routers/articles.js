@@ -9,17 +9,28 @@ export default ({
     router
 }) => {
     router.post('/article', function(req, res, next) {
-        console.log('req.body', req.body);
         let newArticle = new ArticleModel({
             title: req.body.title,
             abstract: req.body.abstract,
             author: req.body.author,
-            articleBody: req.body.articleBody
+            articleBody: req.body.articleBody,
+            label: req.body.label
         });
         newArticle.save((err) => {
-            if(err) return console.error(err);
+            if(err) {
+                console.error(err);
+                res.json({
+                    statusCode: 1001,
+                    message: 'fail',
+                    data: {
+                        userName: req.body.userName
+                    }
+                });
+                next();
+            }
             res.json({
                 statusCode: 1000,
+                message: 'success',
                 data: {
                     userName: req.body.userName
                 }

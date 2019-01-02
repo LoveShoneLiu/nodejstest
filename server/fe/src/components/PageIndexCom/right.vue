@@ -28,19 +28,35 @@
 </template>
 
 <script>
+import { mapState, mapMutations, mapActions } from 'vuex';
 export default {
     data() {
         return {
-            articleType: 0
+            articleType: 0,
+            labelType: {
+                1: '技术',
+                2: '生活',
+                3: '爱好'
+            }
         }
     },
+    mounted() {
+    },
     methods: {
+        ...mapActions([
+            'getArticleAsync'
+        ]),
         classChooseHandler(val) {
             if (this.articleType == val) {
-                this.articleType = 0;
-                return;
+                this.articleType = '';
+            } else {
+                this.articleType = val;
             }
-            this.articleType = val;
+            this.getArticleAsync({
+                page: 1,
+                count: 10,
+                label: this.labelType[this.articleType]
+            });
         }
     }
 }

@@ -19,6 +19,10 @@ export default new mongoose.Schema({
         type: String,
         required: true
     },
+    label: {
+        type: String,
+        required: true
+    },
     createDate: {
         type: Date,
         default: Date.now
