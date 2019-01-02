@@ -1,7 +1,8 @@
 <template>
     <div class="img__com clearfix">
         <div v-for="item in imgData" class="img__com-item pull-left">
-            <img :src="item.url" />
+            <!-- <img :src="item.url" /> -->
+            <div class="img-item" :style="{'backgroundImage': 'url(' + item.url + ')'}"></div>
         </div>
     </div>
 </template>
@@ -52,16 +53,19 @@
 </script>
 <style scoped>
     .img__com-item {
-        width: 400px;
-        height: 400px;
-        border: 2px solid black;
+        width: 300px;
+        height: 300px;
+        border: 1px solid #ccc;
         margin-left: 20px;
         margin-bottom: 20px;
         text-align: center;
-        line-height: 400px;
+        line-height: 300px;
     }
-    .img__com-item img {
-        vertical-align: middle;
+    .img-item {
         width: 100%;
+        height: 100%;
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
     }
 </style>

@@ -2,6 +2,8 @@ import express from 'express';
 import path from 'path';
 import ArticleModel from '../modules/Article.js';
 import { port } from '../configs/configs.js';
+const Mongoose = require('mongoose');
+const { ObjectId } = Mongoose.Types;
 
 export default ({
     router
@@ -43,5 +45,24 @@ export default ({
                 data: item
             });
         });
+    });
+
+    // 获取单个文章
+    router.post('/getOneArticle', function(req, res, next) {
+        let _id = req.body._id || '';
+        ArticleModel.find({_id: new ObjectId(_id)}, function(err, item) {
+            if (err) {
+                res.json({
+                    statusCode: 1001,
+                    message: 'fail'
+                });
+                return console.error(err);
+            }
+            res.json({
+                statusCode: 1000,
+                message: 'success',
+                data: item && item[0]
+            });
+        })
     });
 };

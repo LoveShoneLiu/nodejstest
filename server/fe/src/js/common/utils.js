@@ -178,6 +178,10 @@ const thousandBitSeparator = num => {
   }
 }
 
+export const changeNum = num => {
+  if (num == null) return null;
+  return num < 10 ? '0' + num : '' + num;
+}
 
 
 

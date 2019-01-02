@@ -7,5 +7,8 @@ export default {
     singleUploadImageApi: _baseUrl + '/api/singleUploadImage',
     articleApi: _baseUrl + '/api/article',
     getArticleApi: _baseUrl + '/api/getArticle',
+    getOneArticleApi: _baseUrl + '/api/getOneArticle',
+    getCommentsApi: _baseUrl + '/api/getComments',
+    writeCommentsApi: _baseUrl + '/api/writeComments',
     testApi: _baseUrl + '/api/user/list'
 }

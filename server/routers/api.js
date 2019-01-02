@@ -9,6 +9,7 @@ import userRegister from './user.js';
 import uploadRegister from './upload.js';
 import imagesRegister from './images.js';
 import articleRegister from './articles.js';
+import commentsRegister from './comments.js';
 
 // 用户注册、登录、登出
 userRegister({
@@ -27,6 +28,11 @@ imagesRegister({
 
 // 文章
 articleRegister({
+    router: router
+});
+
+// 评论
+commentsRegister({
     router: router
 });
 export default router;

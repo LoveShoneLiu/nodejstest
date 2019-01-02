@@ -1,14 +1,12 @@
 <template>
     <div>
         <div class="article" v-for="item in articleData">
-            <router-link to="/showArticle" class="article-link">
-                <div class="article__title">
-                    {{ item.title }}
-                </div>
-                <div class="article__summary">
-                    {{ item.abstract }}
-                </div>
-            </router-link>
+            <div @click="gotoHandler(item)" class="article__title">
+                {{ item.title }}
+            </div>
+            <div class="article__summary">
+                {{ item.abstract }}
+            </div>
             <div class="article__footer">
                 <div class="article__footer-item">
                     <img class="article__footer-icon article__footer-icon-up " src="../../images/zan1.png" />
@@ -45,6 +43,16 @@ export default {
     data() {
         return {
             articleData: []
+        }
+    },
+    methods: {
+        gotoHandler(item) {
+            this.$router.push({
+                path: '/showArticle',
+                query: {
+                    _id: item._id
+                }
+            });
         }
     },
     mounted() {
