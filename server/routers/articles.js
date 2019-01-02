@@ -41,7 +41,9 @@ export default ({
     router.post('/getArticle', function(req, res, next) {
         let page = req.body.page || 1;
         let count = req.body.count || 10;
-        ArticleModel.find().skip(page - 1).limit(Number(count)).exec(function(err, item) {
+        let label = req.body.label || '';
+        let params = label ? {label: label} : {};
+        ArticleModel.find(params).skip(page - 1).limit(Number(count)).exec(function(err, item) {
             if (err) {
                 res.json({
                     statusCode: 1001,
