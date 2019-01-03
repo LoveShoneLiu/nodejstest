@@ -65,50 +65,14 @@ app.use(session({
     // name: 'test',   //返回客户端的key的名称，默认为connect.sid,也可以自己设置。
     store: new FileStore(),  // 本地存储session（文本文件，也可以选择其他store，比如redis的）
     secret: 'recommand 128 bytes random string', // 建议使用 128 个字符的随机字符串
-    cookie: { maxAge: 1000 * 60 * 60 * 24 } // 设置返回到前端key的属性，默认值为{ path: ‘/’, httpOnly: true, secure: false, maxAge: null }。
+    cookie: { 
+        maxAge: 1000 * 60 * 60 * 24, 
+        // httpOnly: true,     // 默认是true
+        // secure: true,
+        // path: '/',
+    } // 设置返回到前端key的属性，默认值为{ path: ‘/’, httpOnly: true, secure: false, maxAge: null }。
 }));
 
 // app.use('/admin', require('./routers/admin.js'));
 app.use('/', Main);
 app.use('/api', Api);
-
-// app.get('/', function (req, res, next) {
-//     console.log(11111111111111);
-//     // var pathname = url.parse(req.url).pathname;
-//     // var realPath = path.join(__dirname, '../fe/', pathname);
-//     // console.log('pathname', pathname);
-//     // console.log('realPath', realPath);
-//     // fs.exists(realPath, function (exists) {
-//     //     console.log('exists', exists);
-//     //     if (!exists) {
-//     //         res.writeHead(404, {
-//     //             'Content-Type': 'text/plain'
-//     //         });
-
-//     //         res.write("This request URL " + realPath + " was not found on this server.");
-//     //         res.end();
-//     //     } else {
-//     //         fs.readFile(realPath, 'utf-8', function (err, file) {
-//     //             console.log('err', err);
-//     //             console.log('file', file);
-//     //             if (err) {
-//     //                 res.writeHead(500, {
-//     //                     'Content-Type': 'text/plain'
-//     //                 });
-
-//     //                 res.end(err);
-//     //             } else {
-//     //                 res.writeHead(200, {
-//     //                     'Content-Type': 'text/html'
-//     //                 });
-
-//     //                 res.write(file, "binary");
-
-//     //                 res.end();
-//     //             }
-//     //         });
-//     //     }
-//     // });
-//     res.render('index', {isProduction: 'development'}); 
-//     next();
-// });

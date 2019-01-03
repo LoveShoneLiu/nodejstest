@@ -20,6 +20,7 @@ export default ({
             if (item && item.length) {
                 
                 // 清除session和cookie
+                        console.log('clearclearclearclearclearclearclearclearclear');
                 req.session.destroy();
                 res.clearCookie('userName');
                 res.clearCookie('connect.sid');
@@ -60,13 +61,6 @@ export default ({
 
     // 登录    
     router.post('/loginin', function(req, res, next) {
-        // console.log('req.url', req.url);
-        // console.log('req.baseUrl', req.baseUrl);
-        // console.log('body', req.body);
-        // console.log('req.params', req.params);
-        // console.log('req.query', req.query);
-        // console.log('req.method', req.method);
-    
     
         /**
          *  params: statusCode
@@ -76,6 +70,7 @@ export default ({
             if (err) return console.error(err);
             if (items && items.length) {
                 items.forEach(function(val, index, array) {
+                    console.log('valvalvalvalvalvalvalvalvalval', val);
                     if (val.password == req.body.password) {
     
                         // 设置session
@@ -95,6 +90,7 @@ export default ({
                             }
                         });
                     } else {
+                        console.log('clearclearclearclearclearclearclearclearclear');
                                     
                         // 清除session和cookie
                         req.session.destroy();
@@ -113,6 +109,7 @@ export default ({
             } else {
                 
                 // 清除session和cookie
+                        console.log('clearclearclearclearclearclearclearclearclear');
                 req.session.destroy();
                 res.clearCookie('userName');
                 res.clearCookie('connect.sid');
@@ -134,6 +131,7 @@ export default ({
         console.log('req.session', req.session);
 
         // 清除session和cookie
+                        console.log('clearclearclearclearclearclearclearclearclear');
         req.session.destroy();
         res.clearCookie('userName');
         res.clearCookie('connect.sid');
