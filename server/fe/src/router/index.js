@@ -1,18 +1,14 @@
 import Test from '../components/Test';
-// import ImageCom from 'componentsPath/ImageCom';
-// const ImageCom = { template: '<div>图片</div>' };
 const ImageCom = () => import('componentsPath/ImageCom');
 const AdminCom = () => import('componentsPath/AdminCom');
 const PageIndexCom = () => import('componentsPath/PageIndexCom');
+const ArticleCom = () => import('componentsPath/ArticleCom');
 const WriteCom = () => import('componentsPath/WriteCom');
 const ArticleCon = () => import('componentsPath/ArticleCon');
-// const articleCom = { template: '<div>文章</div>' };
-// const Login = { template: '<div>登录页</div>' };
-// const PageIndexCom = { template: '<div>首页</div>' };
 
-const articleCom = {
-    render: h => h('div', '文章')
-};
+// const articleCom = {
+//     render: h => h('div', '文章')
+// };
 const Login = {
     render: h => h('div', '登录页')
 };
@@ -49,7 +45,7 @@ const routes = [
     }, 
     {
         path: '/articleNav',
-        component: articleCom,
+        component: ArticleCom,
         meta: {
             requiresAuth: true
         }

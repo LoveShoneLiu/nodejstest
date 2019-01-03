@@ -16,14 +16,14 @@
                     <img class="article__footer-icon article__footer-icon-down" src="../../images/zan1.png" />
                     <span>{{ item.notPraise }}</span>
                 </div>
-                <div class="article__footer-item">
+                <div class="article__footer-item" @click="gotoHandler(item)">
                     <img class="article__footer-icon" src="../../images/edit.png" />
                     <span>评论</span>
                 </div>
-                <div class="article__footer-item">
+                <!-- <div class="article__footer-item">
                     <img class="article__footer-icon" src="../../images/heart1.png" />
                     <span>收藏</span>
-                </div>
+                </div> -->
                 <div class="article__footer-item">
                     <img class="article__footer-icon" src="../../images/collection.png" />
                     <span>感谢</span>
@@ -121,11 +121,11 @@ export default {
 }
 .article__footer-item {
     margin-right: 18px;
+    cursor: pointer;
 }
 .article__footer-icon {
     width: 20px;
     height: 20px;
-    cursor: pointer;
     vertical-align: middle;
 }
 .article__footer-icon-down {
