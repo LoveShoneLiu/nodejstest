@@ -30,6 +30,17 @@
                 </div>
             </div>
         </div>
+        <div style="text-align: center;">
+            <el-pagination
+                :page-size="10"
+                :pager-count="11"
+                layout="prev, pager, next"
+                :total="articleTotal"
+                :current-page="currentPage"
+                @current-change="pageChangeHandler"
+            >
+            </el-pagination>
+        </div>
     </div>
 </template>
 
@@ -47,7 +58,9 @@ export default {
     computed: mapState({
         articleData: state =>  {
             return state.articleData
-        }
+        },
+        articleTotal: state => state.articleTotal,
+        currentPage: state => state.currentPage
     }),
     methods: {
         ...mapActions([
@@ -60,36 +73,24 @@ export default {
                     _id: item._id
                 }
             });
+        },
+        pageChangeHandler(val) {
+            this.getArticleAsync({
+                context: this,
+                page: val,
+                count: 10,
+                label: ''
+            });
         }
     },
     mounted() {
         const self = this;
-        // this.getArticleAsync(this, {
-        //     page: 1,
-        //     count: 10,
-        //     label: ''
-        // });
         this.getArticleAsync({
             context: this,
             page: 1,
             count: 10,
             label: ''
         });
-        // axios({
-        //     method: 'post',
-        //     url: Urls.getArticleApi,
-        //     data: qs.stringify({
-        //         page: 1,
-        //         count: 10
-        //     })
-        // }).then(res => {
-        //     if (res.status !=200) {
-        //         this.$message('网络错误，请检查网络！');
-        //     }
-        //     let data = res.data;
-        //     self.articleData = data.data;
-        //     console.log('articleData', data);
-        // });
     }
 }
 </script>

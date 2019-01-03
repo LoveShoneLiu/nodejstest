@@ -32,13 +32,19 @@ import { mapState, mapMutations, mapActions } from 'vuex';
 export default {
     data() {
         return {
-            articleType: 0,
-            labelType: {
-                1: '技术',
-                2: '生活',
-                3: '爱好'
-            }
+            // articleType: 0,
+            // labelType: {
+            //     1: '技术',
+            //     2: '生活',
+            //     3: '爱好'
+            // }
         }
+    },
+    computed: {
+        ...mapState({
+            articleType: state => state.articleType,
+            labelType: state => state. labelType
+        })
     },
     mounted() {
     },
@@ -46,11 +52,14 @@ export default {
         ...mapActions([
             'getArticleAsync'
         ]),
+        ...mapMutations([
+            'changeArticleTypeHandler'
+        ]),
         classChooseHandler(val) {
-            if (this.articleType == val) {
-                this.articleType = '';
+            if (val == this.articleType) {
+                this.changeArticleTypeHandler('');
             } else {
-                this.articleType = val;
+                this.changeArticleTypeHandler(val);
             }
             this.getArticleAsync({
                 page: 1,

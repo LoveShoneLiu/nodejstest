@@ -28,7 +28,7 @@ const Login = {
 const routes = [
     {
         path: '/',
-        redirect: '/imageNav',
+        redirect: '/pageIndex',
         meta: {
             requiresAuth: true
         }

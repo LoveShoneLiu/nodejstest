@@ -20,7 +20,6 @@ export default ({
             if (item && item.length) {
                 
                 // 清除session和cookie
-                        console.log('clearclearclearclearclearclearclearclearclear');
                 req.session.destroy();
                 res.clearCookie('userName');
                 res.clearCookie('connect.sid');
@@ -70,7 +69,6 @@ export default ({
             if (err) return console.error(err);
             if (items && items.length) {
                 items.forEach(function(val, index, array) {
-                    console.log('valvalvalvalvalvalvalvalvalval', val);
                     if (val.password == req.body.password) {
     
                         // 设置session
@@ -90,7 +88,6 @@ export default ({
                             }
                         });
                     } else {
-                        console.log('clearclearclearclearclearclearclearclearclear');
                                     
                         // 清除session和cookie
                         req.session.destroy();
@@ -109,7 +106,6 @@ export default ({
             } else {
                 
                 // 清除session和cookie
-                        console.log('clearclearclearclearclearclearclearclearclear');
                 req.session.destroy();
                 res.clearCookie('userName');
                 res.clearCookie('connect.sid');
@@ -131,7 +127,6 @@ export default ({
         console.log('req.session', req.session);
 
         // 清除session和cookie
-                        console.log('clearclearclearclearclearclearclearclearclear');
         req.session.destroy();
         res.clearCookie('userName');
         res.clearCookie('connect.sid');

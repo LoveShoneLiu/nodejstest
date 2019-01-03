@@ -43,19 +43,36 @@ export default ({
         let count = req.body.count || 10;
         let label = req.body.label || '';
         let params = label ? {label: label} : {};
-        ArticleModel.find(params).skip(page - 1).limit(Number(count)).exec(function(err, item) {
-            if (err) {
+
+        new Promise((resolve, reject) => {
+
+            // 获取文章总数量
+            ArticleModel.find(params).count({}, (err, count) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(count);
+                }
+            });
+        }).then(resp => {
+
+            // 获取分页数据
+            ArticleModel.find(params).skip((page - 1) * count).limit(Number(count)).exec(function(err, item) {
+                if (err) {
+                    res.json({
+                        statusCode: 1001,
+                        message: 'err',
+                        data: err
+                    });
+                    return;
+                }
                 res.json({
-                    statusCode: 1001,
-                    message: 'err',
-                    data: err
+                    statusCode: 1000,
+                    message: 'success',
+                    total: resp,
+                    currentPage: page,
+                    data: item
                 });
-                return;
-            }
-            res.json({
-                statusCode: 1000,
-                message: 'success',
-                data: item
             });
         });
     });

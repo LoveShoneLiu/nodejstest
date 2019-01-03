@@ -18,7 +18,8 @@ export default {
                 context.$message('网络错误，请检查网络！');
                 return;
             }
-            commit('articleDataHandler', res.data && res.data.data || []);
+            commit('articleDataHandler', res.data || {});
+            // commit('changeArticleTypeHandler', label);
             // let data = res.data;
             // self.articleData = data.data;
             // console.log('articleData', data);
