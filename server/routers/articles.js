@@ -95,6 +95,20 @@ export default ({
                         praiseTotal = result.praise.length || 0;
                     }
 
+
+                    // 踩
+                    let isNotPraise;
+                    let notPraiseTotal = 0;
+                    console.log('notPraisenotPraisenotPraisenotPraisenotPraise', result.notPraise);
+                    if (!result.notPraise || !result.notPraise.length) {
+                        isNotPraise = false;
+                    } else {
+                        isNotPraise = result.notPraise.some(result => {
+                            return result.user_Id == user_Id;
+                        });
+                        notPraiseTotal = result.notPraise.length || 0;
+                    }
+
                     return {
                         _id: result._id,
                         title: result.title,
@@ -108,7 +122,9 @@ export default ({
                         title: result.title,
                         isThank: isThank,
                         isPraise: isPraise,
-                        praiseTotal: praiseTotal
+                        praiseTotal: praiseTotal,
+                        isNotPraise: isNotPraise,
+                        notPraiseTotal: notPraiseTotal
                     }
                 });
                 res.json({

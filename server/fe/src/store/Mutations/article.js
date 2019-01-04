@@ -10,5 +10,25 @@ export default {
     changeArticleThankHandler(state, data) {
         let { index = '', boolean } = data;
         state.articleData[index].isThank = boolean;
-    }
+    },
+    changeArticlePraiseHandler(state, data) {
+        let { index = '', boolean } = data;
+        state.articleData[index].isPraise = boolean;
+
+        if (boolean) {
+            state.articleData[index].praiseTotal++;
+        } else {
+            state.articleData[index].praiseTotal--;
+        }
+    },
+    changeArticleNotPraiseHandler(state, data) {
+        let { index = '', boolean } = data;
+        state.articleData[index].isNotPraise = boolean;
+
+        if (boolean) {
+            state.articleData[index].notPraiseTotal++;
+        } else {
+            state.articleData[index].notPraiseTotal--;
+        }
+    },
 }
