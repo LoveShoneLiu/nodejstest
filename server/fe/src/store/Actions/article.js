@@ -19,10 +19,6 @@ export default {
                 return;
             }
             commit('articleDataHandler', res.data || {});
-            // commit('changeArticleTypeHandler', label);
-            // let data = res.data;
-            // self.articleData = data.data;
-            // console.log('articleData', data);
         });
     }
 }

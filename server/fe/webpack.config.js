@@ -46,7 +46,7 @@ const config = {
             // _baseUrl: JSON.stringify(Boolean(NODE_ENV == 'pruduction') ? "./" : "localhost:4000")
             _baseUrl: JSON.stringify(Boolean(NODE_ENV == 'pruduction') ? "" : "")
         }),
-        new cleanWebpackPlugin(['dist'])
+        // new cleanWebpackPlugin(['dist'])
     ],
     resolve: {
         alias: {
@@ -102,8 +102,8 @@ const config = {
                 use: [{
                     loader: 'url-loader',
                     options: {
-                        limit: 10000,
-                        name: 'images/[name]_[hash:8].[ext]'
+                        limit: 10,
+                        name: 'images/[name].[ext]'
                     }
                 }]
             },

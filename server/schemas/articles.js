@@ -21,7 +21,7 @@ export default new mongoose.Schema({
     },
     label: {
         type: String,
-        required: true
+        default: ''
     },
     createDate: {
         type: Date,
@@ -31,12 +31,49 @@ export default new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    praise: {
-        type: Number,
-        default: 0
+    praise:  {
+        type: [
+            {
+                user_Id: {
+                    type: String,
+                    default: 0
+                },
+                userName: {
+                    type: String,
+                    default: ''
+                }
+            }
+        ],
+        default: []
     },
-    notPraise: {
-        type: Number,
-        default: 0
+    notPraise:  {
+        type: [
+            {
+                user_Id: {
+                    type: String,
+                    default: 0
+                },
+                userName: {
+                    type: String,
+                    default: ''
+                }
+            }
+        ],
+        default: []
+    },
+    thanks:  {
+        type: [
+            {
+                user_Id: {
+                    type: String,
+                    default: 0
+                },
+                userName: {
+                    type: String,
+                    default: ''
+                }
+            }
+        ],
+        default: []
     }
 });

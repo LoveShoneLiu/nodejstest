@@ -6,5 +6,9 @@ export default {
     },
     changeArticleTypeHandler(state, data) {
         state.articleType = data;
+    },
+    changeArticleThankHandler(state, data) {
+        let { index = '', boolean } = data;
+        state.articleData[index].isThank = boolean;
     }
 }

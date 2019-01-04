@@ -10,6 +10,7 @@ import uploadRegister from './upload.js';
 import imagesRegister from './images.js';
 import articleRegister from './articles.js';
 import commentsRegister from './comments.js';
+import articleFocusRegister from './articleFocus.js'
 
 // 用户注册、登录、登出
 userRegister({
@@ -35,4 +36,10 @@ articleRegister({
 commentsRegister({
     router: router
 });
+
+// 点赞 踩 感谢
+articleFocusRegister({
+    router: router
+});
+
 export default router;

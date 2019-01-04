@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="article" v-for="item in articleData">
+        <div class="article" v-for="(item, index) in articleData">
             <div @click="gotoHandler(item)" class="article__title">
                 {{ item.title }}
             </div>
@@ -9,8 +9,9 @@
             </div>
             <div class="article__footer">
                 <div class="article__footer-item">
-                    <img class="article__footer-icon article__footer-icon-up " src="../../images/zan1.png" />
-                    <span>{{ item.praise }}</span>
+                    <img v-if="!item.isPraise" class="article__footer-icon article__footer-icon-up " src="../../images/zan1.png" />
+                    <img v-if="item.isPraise" class="article__footer-icon article__footer-icon-up " src="../../images/zan2.png" />
+                    <span>{{ item.praiseTotal }}</span>
                 </div>
                 <div class="article__footer-item">
                     <img class="article__footer-icon article__footer-icon-down" src="../../images/zan1.png" />
@@ -24,8 +25,9 @@
                     <img class="article__footer-icon" src="../../images/heart1.png" />
                     <span>收藏</span>
                 </div> -->
-                <div class="article__footer-item">
-                    <img class="article__footer-icon" src="../../images/collection.png" />
+                <div class="article__footer-item" @click="thankHandler({topic_id: item._id, index: index, item: item})">
+                    <img v-if="!item.isThank" class="article__footer-icon" src="../../images/collection1.png" />
+                    <img v-if="item.isThank" class="article__footer-icon" src="../../images/collection2.png" />
                     <span>感谢</span>
                 </div>
             </div>
@@ -66,6 +68,9 @@ export default {
         ...mapActions([
             'getArticleAsync'
         ]),
+        ...mapMutations([
+            'changeArticleThankHandler'
+        ]),
         gotoHandler(item) {
             this.$router.push({
                 path: '/showArticle',
@@ -80,6 +85,38 @@ export default {
                 page: val,
                 count: 10,
                 label: ''
+            });
+        },
+        thankHandler(params) {
+            let thankResult = params.item && params.item.isThank ? 0 : 1;
+            axios({
+                method: 'post',
+                url: Urls.thankApi,
+                data: qs.stringify({
+                    topic_id: params.topic_id,
+                    isThank: thankResult
+                }),
+                headers: { 'content-type': 'application/x-www-form-urlencoded' }
+            }).then(res => {
+                if (res.status !=200) {
+                    this.$message('网络错误，请检查网络！');
+                    return;
+                }
+                if (thankResult) {
+                    this.$message({
+                        type: 'success',
+                        message: '谢谢鼓励！'
+                    });
+                } else {
+                    this.$message({
+                        type: 'success',
+                        message: '取消感谢！'
+                    });
+                }
+                this.changeArticleThankHandler({
+                    index: params.index,
+                    boolean: thankResult
+                });
             });
         }
     },

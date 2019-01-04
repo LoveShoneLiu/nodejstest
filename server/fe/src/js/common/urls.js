@@ -10,5 +10,8 @@ export default {
     getOneArticleApi: _baseUrl + '/api/getOneArticle',
     getCommentsApi: _baseUrl + '/api/getComments',
     writeCommentsApi: _baseUrl + '/api/writeComments',
+    praiseApi: _baseUrl + '/api/praise',
+    notPraiseApi: _baseUrl + '/api/not_praise',
+    thankApi: _baseUrl + '/api/thank',
     testApi: _baseUrl + '/api/user/list'
 }

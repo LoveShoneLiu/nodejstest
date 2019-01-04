@@ -43,11 +43,14 @@ export default ({
         let count = req.body.count || 10;
         let label = req.body.label || '';
         let params = label ? {label: label} : {};
+        let { userInfo = {} } = req.session;
+        let { userName = '' } = userInfo;
+        let user_Id = userInfo._id || '';
 
         new Promise((resolve, reject) => {
 
             // 获取文章总数量
-            ArticleModel.find(params).count({}, (err, count) => {
+            ArticleModel.find(params).countDocuments({}, (err, count) => {
                 if (err) {
                     reject(err);
                 } else {
@@ -66,12 +69,54 @@ export default ({
                     });
                     return;
                 }
+                // console.log('itemitemitemitemitemitem', item);
+                let articleData = item.map((result) => {
+
+                    // 感谢
+                    let isThank;
+                    if (!result.thanks || !result.thanks.length) {
+                        isThank = false;
+                    } else {
+                        isThank = result.thanks.some(result => {
+                            return result.user_Id == user_Id;
+                        });
+                    }
+
+                    // 点赞
+                    let isPraise;
+                    let praiseTotal = 0;
+                    // console.log('result.praiseresult.praiseresult.praise', result.praise);
+                    if (!result.praise || !result.praise.length) {
+                        isPraise = false;
+                    } else {
+                        isPraise = result.praise.some(result => {
+                            return result.user_Id == user_Id;
+                        });
+                        praiseTotal = result.praise.length || 0;
+                    }
+
+                    return {
+                        _id: result._id,
+                        title: result.title,
+                        abstract: result.abstract,
+                        author: result.author,
+                        articleBody: result.articleBody,
+                        label: result.label,
+                        createDate: result.createDate,
+                        lastUpdateDate: result.lastUpdateDate,
+                        title: result.title,
+                        title: result.title,
+                        isThank: isThank,
+                        isPraise: isPraise,
+                        praiseTotal: praiseTotal
+                    }
+                });
                 res.json({
                     statusCode: 1000,
                     message: 'success',
                     total: resp,
                     currentPage: page,
-                    data: item
+                    data: articleData
                 });
             });
         });
