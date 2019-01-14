@@ -46,7 +46,7 @@
   },
   "scripts": {
     "start": "NODE_ENV=development webpack-dev-server --public --inline --devtool eval --progress --colors --hot --history-api-fallback",
-    "build": "NODE_ENV=development webpack --progress --watch --colors",
+    "build": "NODE_ENV=pruduction webpack --progress --watch --colors",
     "proBuild": "NODE_ENV=production webpack --progress --watch --colors",
     "startServer": "node ../starts.js",
     "startClient": "npm-run-all --parallel startServer start",

@@ -132,8 +132,8 @@ const config = {
         },
         port: 4001,
         proxy: {
-            '/api': 'http://localhost:4000',
-            '/images': 'http://localhost:4000'
+            '/api': 'http://localhost:3389',
+            '/images': 'http://localhost:3389'
         },
         // 服务器打包资源后的输出路径
         publicPath: '/',

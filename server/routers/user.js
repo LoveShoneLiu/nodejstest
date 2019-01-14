@@ -60,6 +60,7 @@ export default ({
 
     // 登录    
     router.post('/loginin', function(req, res, next) {
+        console.log('loginin');
     
         /**
          *  params: statusCode

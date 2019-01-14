@@ -9,7 +9,7 @@ router.get('*', function(req, res, next) {
     var isLogined = req.session && req.session.userInfo && req.session.userInfo.userName && req.session.userInfo.password && req.cookies.userName;
     
     // console.log('req.session222222', req.session);
-    // console.log('isLogined', isLogined);
+    console.log('isLogined', isLogined);
     if (isLogined) {
         res.render('dist/index', {
             isProduction: 'development',

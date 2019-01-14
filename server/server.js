@@ -42,8 +42,8 @@ mongoose.connect('mongodb://localhost:27017/runoob', function(err) {
         console.log('数据库连接失败');
     } else {
         console.log('数据库连接成功');
-        app.listen(4000, function() {
-            console.log('端口', 4000);
+        app.listen(3389, function() {
+            console.log('端口', 3389);
         });
     }
 });
