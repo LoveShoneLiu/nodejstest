@@ -99,7 +99,7 @@ export default ({
                     // 踩
                     let isNotPraise;
                     let notPraiseTotal = 0;
-                    console.log('notPraisenotPraisenotPraisenotPraisenotPraise', result.notPraise);
+                    // console.log('notPraisenotPraisenotPraisenotPraisenotPraise', result.notPraise);
                     if (!result.notPraise || !result.notPraise.length) {
                         isNotPraise = false;
                     } else {

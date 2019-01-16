@@ -50,6 +50,7 @@
     "proBuild": "NODE_ENV=production webpack --progress --watch --colors",
     "startServer": "node ../starts.js",
     "startClient": "npm-run-all --parallel startServer start",
+    "startServerClound": "pm2 start ../starts.js",
     "startClound": "npm-run-all --parallel build startServer"
   },
   "author": "",

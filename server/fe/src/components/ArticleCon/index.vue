@@ -106,6 +106,8 @@ export default {
     box-shadow: 0px 2px 10px 5px rgba(0,0,0,0.1), 0 1px rgba(0,0,0,0.1);
     margin-bottom: 20px;
     padding: 15px;
+    word-break: break-all;
+    word-wrap: break-word;
 }
 .comments-title {
     border-bottom: 2px solid rgba(0,0,0,0.09);
